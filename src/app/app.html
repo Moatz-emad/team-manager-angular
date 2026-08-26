@@ -1,0 +1,171 @@
+<div class="container">
+
+  <h1>Team Manager</h1>
+
+  <!-- Add Member Form -->
+  <div class="form-card">
+
+    <h2>Add New Member</h2>
+
+    <input
+      type="text"
+      placeholder="Member Name"
+      [(ngModel)]="newMember.name"
+    />
+
+    <input
+      type="number"
+      placeholder="Age"
+      [(ngModel)]="newMember.age"
+    />
+
+    <select [(ngModel)]="newMember.department">
+      @for (department of departments; track department) {
+        <option [value]="department">
+          {{ department }}
+        </option>
+      }
+    </select>
+
+    <label>
+      <input
+        type="checkbox"
+        [(ngModel)]="newMember.available"
+      />
+      Available
+    </label>
+
+    <button (click)="addMember()">
+      Add Member
+    </button>
+
+  </div>
+
+
+  <!-- Filters -->
+  <div class="controls">
+
+    <select [(ngModel)]="selectedDepartment">
+      <option value="All">All Departments</option>
+
+      @for (department of departments; track department) {
+        <option [value]="department">
+          {{ department }}
+        </option>
+      }
+    </select>
+
+
+    <button (click)="viewMode = 'card'">
+      Card View
+    </button>
+
+    <button (click)="viewMode = 'list'">
+      List View
+    </button>
+
+  </div>
+
+
+  <!-- Members -->
+  @if (members.length === 0) {
+
+    <p>No team members available.</p>
+
+  } @else {
+
+    @if (
+      selectedDepartment === 'All' ||
+      members.some(member => member.department === selectedDepartment)
+    ) {
+
+      @switch (viewMode) {
+
+        @case ('card') {
+
+          <div class="members-grid">
+
+            @for (member of members; track member.name) {
+
+              @if (
+                selectedDepartment === 'All' ||
+                member.department === selectedDepartment
+              ) {
+
+                <div class="member-card">
+
+                  <h3>{{ member.name }}</h3>
+
+                  <p>Age: {{ member.age }}</p>
+
+                  <p>Department: {{ member.department }}</p>
+
+                  @if (member.available) {
+                    <p class="available">Available</p>
+                  } @else {
+                    <p class="unavailable">Unavailable</p>
+                  }
+
+                  <button (click)="toggleAvailability(member)">
+                    Toggle Availability
+                  </button>
+
+                </div>
+
+              }
+
+            }
+
+          </div>
+
+        }
+
+        @case ('list') {
+
+          <div class="members-list">
+
+            @for (member of members; track member.name) {
+
+              @if (
+                selectedDepartment === 'All' ||
+                member.department === selectedDepartment
+              ) {
+
+                <div class="list-item">
+
+                  <span>
+                    {{ member.name }} -
+                    {{ member.department }} -
+                  </span>
+
+                  @if (member.available) {
+                    <span>✔️ Available</span>
+                  } @else {
+                    <span>❌ Unavailable</span>
+                  }
+
+                  <button (click)="toggleAvailability(member)">
+                    Toggle
+                  </button>
+
+                </div>
+
+              }
+
+            }
+
+          </div>
+
+        }
+
+      }
+
+    } @else {
+
+      <p>No members match the selected department.</p>
+
+    }
+
+  }
+
+</div>
