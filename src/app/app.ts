@@ -1,84 +1,50 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, computed, effect, signal } from '@angular/core';
 
-interface TeamMember {
+interface Product {
+  id: number;
   name: string;
-  age: number;
-  department: string;
-  available: boolean;
+  price: number;
 }
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule],
+  imports: [],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
 
-  members: TeamMember[] = [
-    {
-      name: 'Ahmed',
-      age: 28,
-      department: 'Development',
-      available: true
-    },
-    {
-      name: 'Esraa',
-      age: 24,
-      department: 'Marketing',
-      available: false
-    },
-    {
-      name: 'Omar',
-      age: 26,
-      department: 'Design',
-      available: true
-    }
+  products: Product[] = [
+    { id: 1, name: 'Laptop', price: 25000 },
+    { id: 2, name: 'Phone', price: 15000 },
+    { id: 3, name: 'Headphones', price: 2500 },
+    { id: 4, name: 'Keyboard', price: 1200 },
+    { id: 5, name: 'Mouse', price: 700 }
   ];
 
-  departments: string[] = [
-    'Development',
-    'Marketing',
-    'Design'
-  ];
+  cart = signal<Product[]>([]);
 
-  selectedDepartment: string = 'All';
+  totalPrice = computed(() =>
+    this.cart().reduce((sum, product) => sum + product.price, 0)
+  );
 
-  viewMode: string = 'card';
-
-  newMember = {
-    name: '',
-    age: 0,
-    department: 'Development',
-    available: true
-  };
-
-  addMember() {
-    if (
-      !this.newMember.name ||
-      this.newMember.age <= 0 ||
-      !this.newMember.department
-    ) {
-      return;
-    }
-
-    this.members.push({
-      name: this.newMember.name,
-      age: this.newMember.age,
-      department: this.newMember.department,
-      available: this.newMember.available
+  constructor() {
+    effect(() => {
+      console.log('Cart items count:', this.cart().length);
     });
-
-    this.newMember = {
-      name: '',
-      age: 0,
-      department: 'Development',
-      available: true
-    };
   }
 
-  toggleAvailability(member: TeamMember) {
-    member.available = !member.available;
+  addToCart(product: Product): void {
+    this.cart.update(currentCart => [...currentCart, product]);
+  }
+
+  removeFromCart(productId: number): void {
+    this.cart.update(currentCart =>
+      currentCart.filter(product => product.id !== productId)
+    );
+  }
+
+  clearCart(): void {
+    this.cart.set([]);
   }
 }
