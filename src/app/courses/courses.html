@@ -1,0 +1,77 @@
+<h1>EduHub Courses</h1>
+
+<p>Browse available courses.</p>
+
+<button (click)="getCourses()">
+  Load Courses
+</button>
+
+@if (loading()) {
+  <p>Loading courses...</p>
+}
+
+@if (error()) {
+  <p>{{ error() }}</p>
+}
+
+@if (!loading() && courses().length === 0 && !error()) {
+  <p>No courses loaded yet.</p>
+}
+
+<div class="courses-container">
+
+  @for (course of courses(); track course._id) {
+
+    <div class="course-card">
+
+      @if (course.imageUrl) {
+        <img
+          [src]="'http://localhost:3000/' + course.imageUrl.replace('\\', '/')"
+          [alt]="course.title"
+        />
+      }
+
+      <h2>{{ course.title }}</h2>
+
+      <p>
+        <strong>Instructor:</strong>
+        {{ course.instructor }}
+      </p>
+
+      <p>
+        <strong>Category:</strong>
+        {{ course.category }}
+      </p>
+
+      <p>
+        <strong>Level:</strong>
+        {{ course.level }}
+      </p>
+
+      <p>
+        <strong>Duration:</strong>
+        {{ course.duration }}
+      </p>
+
+      <p>
+        <strong>Price:</strong>
+        {{ course.price }}
+      </p>
+
+      @if (course._id) {
+        <a [routerLink]="['details', course._id]">
+          View Details
+        </a>
+      }
+
+    </div>
+
+  }
+
+</div>
+
+<hr>
+
+<h3>Child Route</h3>
+
+<router-outlet></router-outlet>

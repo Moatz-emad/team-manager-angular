@@ -1,0 +1,108 @@
+<div class="form-container">
+
+  <h2>Add New Course</h2>
+
+  <form>
+
+    <div class="form-group">
+      <label>Course Title</label>
+      <input
+        type="text"
+        [formField]="courseForm.title">
+    </div>
+
+    <div class="form-group">
+      <label>Instructor Name</label>
+      <input
+        type="text"
+        [formField]="courseForm.instructor">
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col">
+        <label>Category</label>
+
+        <select [formField]="courseForm.category">
+          <option value="">Select Category</option>
+
+          @for (cat of categories; track $index) {
+            <option [value]="cat">
+              {{ cat | titlecase }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group col">
+        <label>Course Level</label>
+
+        <select [formField]="courseForm.level">
+          <option value="">Select Level</option>
+
+          @for (lev of levels; track $index) {
+            <option [value]="lev">
+              {{ lev | titlecase }}
+            </option>
+          }
+        </select>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col">
+        <label>Price</label>
+        <input
+          type="number"
+          [formField]="courseForm.price">
+      </div>
+
+      <div class="form-group col">
+        <label>Duration</label>
+        <input
+          type="text"
+          [formField]="courseForm.duration">
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col">
+        <label>Rating</label>
+        <input
+          type="number"
+          [formField]="courseForm.rating">
+      </div>
+
+      <div class="form-group col">
+        <label>Students</label>
+        <input
+          type="number"
+          [formField]="courseForm.students">
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+
+      <textarea
+        rows="4"
+        [formField]="courseForm.description">
+      </textarea>
+    </div>
+
+    <button
+      type="button"
+      class="submit-btn"
+      [disabled]="courseForm().invalid()"
+      (click)="submitForm()">
+      Create Course
+    </button>
+
+  </form>
+
+</div>
