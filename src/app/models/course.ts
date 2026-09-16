@@ -1,9 +1,10 @@
 export interface Course {
-  _id?: string;
+  _id: string;
   title: string;
-  description: string;
+  instructor: string;
   category: string;
   price: number;
-  instructor: string;
-  image?: string;
+  duration: string;
+  level: string;
+  imageUrl: string;
 }

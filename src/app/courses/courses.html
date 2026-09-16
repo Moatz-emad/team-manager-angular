@@ -1,77 +1,148 @@
-<h1>EduHub Courses</h1>
+<div class="courses-page">
 
-<p>Browse available courses.</p>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">EduHub 🎓</div>
 
-<button (click)="getCourses()">
-  Load Courses
-</button>
+    <div class="nav-right">
+      <span>My Learning</span>
+      <span>Courses</span>
+    </div>
+  </nav>
 
-@if (loading()) {
-  <p>Loading courses...</p>
-}
-
-@if (error()) {
-  <p>{{ error() }}</p>
-}
-
-@if (!loading() && courses().length === 0 && !error()) {
-  <p>No courses loaded yet.</p>
-}
-
-<div class="courses-container">
-
-  @for (course of courses(); track course._id) {
-
-    <div class="course-card">
-
-      @if (course.imageUrl) {
-        <img
-          [src]="'http://localhost:3000/' + course.imageUrl.replace('\\', '/')"
-          [alt]="course.title"
-        />
-      }
-
-      <h2>{{ course.title }}</h2>
-
-      <p>
-        <strong>Instructor:</strong>
-        {{ course.instructor }}
+  <!-- Welcome -->
+  <section class="welcome-section">
+    <div>
+      <p class="welcome-small">WELCOME BACK 👋</p>
+      <h1>Keep learning, keep growing.</h1>
+      <p class="welcome-text">
+        Explore our courses and continue your learning journey.
       </p>
+    </div>
 
-      <p>
-        <strong>Category:</strong>
-        {{ course.category }}
-      </p>
+    <button class="load-btn" (click)="getCourses()">
+      Explore Courses
+    </button>
+  </section>
 
-      <p>
-        <strong>Level:</strong>
-        {{ course.level }}
-      </p>
+  <!-- Search UI -->
+  <div class="search-box">
+    <span>🔍</span>
+    <input
+      type="text"
+      placeholder="Search for a course..."
+    >
+  </div>
 
-      <p>
-        <strong>Duration:</strong>
-        {{ course.duration }}
-      </p>
+  <!-- Status -->
+  @if (loading()) {
+    <div class="status-box">
+      Loading courses...
+    </div>
+  }
 
-      <p>
-        <strong>Price:</strong>
-        {{ course.price }}
-      </p>
+  @if (error()) {
+    <div class="error-box">
+      {{ error() }}
+    </div>
+  }
 
-      @if (course._id) {
-        <a [routerLink]="['details', course._id]">
-          View Details
-        </a>
+  @if (!loading() && courses().length === 0 && !error()) {
+    <div class="empty-box">
+      <h3>No courses loaded yet</h3>
+      <p>Click "Explore Courses" to load available courses.</p>
+    </div>
+  }
+
+  <!-- Courses -->
+  @if (courses().length > 0) {
+
+    <div class="section-header">
+      <div>
+        <p class="section-label">LEARN SOMETHING NEW</p>
+        <h2>Explore Courses</h2>
+      </div>
+
+      <span class="course-count">
+        {{ courses().length }} Courses
+      </span>
+    </div>
+
+    <div class="courses-container">
+
+      @for (course of courses(); track course._id) {
+
+        <div class="course-card">
+
+          <!-- Image -->
+          @if (course.imageUrl) {
+            <div class="course-image">
+              <img
+                [src]="'http://localhost:3000/' + course.imageUrl.replace('\\', '/')"
+                [alt]="course.title"
+              >
+
+              <span class="level-badge">
+                {{ course.level }}
+              </span>
+            </div>
+          }
+
+          <!-- Content -->
+          <div class="course-content">
+
+            <span class="category">
+              {{ course.category }}
+            </span>
+
+            <h3>{{ course.title }}</h3>
+
+            <p class="instructor">
+              👨‍🏫 {{ course.instructor }}
+            </p>
+
+            <div class="course-details">
+
+              <span>
+                ⏱ {{ course.duration }}
+              </span>
+
+              <span>
+                📚 {{ course.level }}
+              </span>
+
+            </div>
+
+            <div class="card-bottom">
+
+              <div class="price">
+                {{ course.price }} EGP
+              </div>
+
+              @if (course._id) {
+                <a
+                  [routerLink]="['details', course._id]"
+                  class="details-btn"
+                >
+                  View Course →
+                </a>
+              }
+
+            </div>
+
+          </div>
+
+        </div>
+
       }
 
     </div>
 
   }
 
+  <!-- Child Route -->
+  <div class="child-route">
+    <router-outlet></router-outlet>
+  </div>
+
 </div>
-
-<hr>
-
-<h3>Child Route</h3>
-
-<router-outlet></router-outlet>

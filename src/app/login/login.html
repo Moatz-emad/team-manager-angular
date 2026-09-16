@@ -1,35 +1,45 @@
-<div class="login-container">
+<div class="login-page">
 
-  <h1>EduHub</h1>
+  <div class="login-card">
 
-  <h2>Login</h2>
+    <div class="welcome-section">
+      <h1>Welcome to EduHub 🎓</h1>
+      <p>Learn, grow, and build your future with us.</p>
+    </div>
 
-  <form (ngSubmit)="login()">
+    <div class="login-section">
+      <h2>Welcome Back!</h2>
+      <p class="subtitle">Login to continue your learning journey.</p>
 
-    <label>Email</label>
+      <form (ngSubmit)="login()">
 
-    <input
-      type="email"
-      name="email"
-      [(ngModel)]="email"
-      placeholder="Enter your email"
-      required
-    >
+        <label>Email</label>
 
-    <label>Password</label>
+        <input
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Enter your email"
+          required
+        >
 
-    <input
-      type="password"
-      name="password"
-      [(ngModel)]="password"
-      placeholder="Enter your password"
-      required
-    >
+        <label>Password</label>
 
-    <button type="submit">
-      Login
-    </button>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Enter your password"
+          required
+        >
 
-  </form>
+        <button type="submit">
+          Login
+        </button>
+
+      </form>
+    </div>
+
+  </div>
 
 </div>

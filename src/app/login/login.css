@@ -1,0 +1,118 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f7fb;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.login-card {
+  width: 850px;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Welcome side */
+.welcome-section {
+  padding: 60px 40px;
+  background: #2563eb;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.welcome-section h1 {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.welcome-section p {
+  font-size: 17px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* Login side */
+.login-section {
+  padding: 50px 40px;
+}
+
+.login-section h2 {
+  margin: 0 0 8px;
+  font-size: 30px;
+  color: #111827;
+}
+
+.subtitle {
+  margin-bottom: 30px;
+  color: #6b7280;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 7px;
+  font-weight: bold;
+  color: #374151;
+}
+
+input {
+  padding: 13px;
+  margin-bottom: 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #2563eb;
+}
+
+button {
+  margin-top: 5px;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+  .login-card {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-section {
+    padding: 35px 30px;
+  }
+
+  .welcome-section h1 {
+    font-size: 28px;
+  }
+
+  .login-section {
+    padding: 35px 30px;
+  }
+}
